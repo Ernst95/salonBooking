@@ -15,7 +15,7 @@ public class Customer {
     private String cellNumber;
     private String email;
     private Employee emp;
-    ArrayList<Receipt> receiptList;
+    //ArrayList<Receipt> receiptList;
 
     public String getId() {
         return id;
@@ -59,7 +59,7 @@ public class Customer {
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
         this.emp = builder.emp;
-        this.receiptList = builder.receiptList;
+        //this.receiptList = builder.receiptList;
 
     }
 
@@ -73,7 +73,7 @@ public class Customer {
         private String cellNumber;
         private String email;
         private Employee emp;
-        private ArrayList<Receipt> receiptList;
+        //private ArrayList<Receipt> receiptList;
 
         public Customer.Builder id(String value) {
             this.id = value;
@@ -115,11 +115,11 @@ public class Customer {
             return this;
         }
 
-        public Builder receiptList()
+        /*public Builder receiptList()
         {
             this.receiptList = new ArrayList<Receipt>();
             return this;
-        }
+        }*/
 
         public Customer build(){
             return new Customer(this);

@@ -15,7 +15,7 @@ public class Employee {
     private String cellNumber;
     private String email;
     private String password;
-    ArrayList<Customer> custList;
+    //ArrayList<Customer> custList;
 
     public String getId() {
         return id;
@@ -63,7 +63,7 @@ public class Employee {
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
         this.password = builder.password;
-        this.custList = builder.custList;
+        //this.custList = builder.custList;
 
     }
 
@@ -119,11 +119,11 @@ public class Employee {
             return this;
         }
 
-        public Builder custList()
+        /*public Builder custList()
         {
             this.custList = new ArrayList<Customer>();
             return this;
-        }
+        }*/
 
         public Employee build(){
             return new Employee(this);

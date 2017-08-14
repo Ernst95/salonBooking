@@ -23,6 +23,11 @@ public class Receipt implements Print{
         return date;
     }
 
+    public DateFormat getDateFormat()
+    {
+        return dateFormat;
+    }
+
     public void print()
     {
         System.out.println("Receipt\n\t\t\t\t"+dateFormat.format(date));
@@ -58,13 +63,13 @@ public class Receipt implements Print{
             return this;
         }
 
-        public Builder date() {
-            this.date = new Date();
+        public Builder date(Date date) {
+            this.date = date;
             return this;
         }
 
-        public Builder dateFormat(){
-            dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        public Builder dateFormat(DateFormat dateFormat){
+            this.dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             return this;
         }
 
