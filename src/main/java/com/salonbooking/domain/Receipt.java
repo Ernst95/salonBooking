@@ -1,5 +1,7 @@
 package com.salonbooking.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,13 +9,17 @@ import java.util.Date;
 /**
  * Created by Ernst on 2017/08/07.
  */
+
+@Entity
 public class Receipt implements Print{
 
+    @Id
     private String id;
     private Date date;
     private DateFormat dateFormat;
-    private Customer cust;
-    private Employee emp;
+
+    /*private Customer customer;
+    private Employee employee;*/
 
     public String getId() {
         return id;
@@ -31,8 +37,8 @@ public class Receipt implements Print{
     public void print()
     {
         System.out.println("Receipt\n\t\t\t\t"+dateFormat.format(date));
-        System.out.println("Employee: " + emp.getName());
-        System.out.println("Customer: " + cust.getName());
+        /*System.out.println("Employee: " + employee.getName());
+        System.out.println("Customer: " + customer.getName());*/
     }
 
     private Receipt(){
@@ -43,9 +49,9 @@ public class Receipt implements Print{
 
         this.id = builder.id;
         this.date = builder.date;
-        this.dateFormat = builder.dateFormat;
-        this.cust = builder.cust;
-        this.emp = builder.emp;
+        /*this.dateFormat = builder.dateFormat;
+        this.customer = builder.customer;
+        this.employee = builder.employee;*/
 
     }
 
@@ -53,10 +59,10 @@ public class Receipt implements Print{
 
         private String id;
         private Date date;
-        private DateFormat dateFormat;
-        private Customer cust;
-        private Employee emp;
-
+        /*private DateFormat dateFormat;
+        private Customer customer;
+        private Employee employee;
+        private Receipt receipt*/
 
         public Builder id(String value) {
             this.id = value;
@@ -68,20 +74,20 @@ public class Receipt implements Print{
             return this;
         }
 
-        public Builder dateFormat(DateFormat dateFormat){
+        /*public Builder dateFormat(DateFormat dateFormat){
             this.dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             return this;
-        }
+        }*/
 
-        public Builder cust(Customer cust) {
-            this.cust = cust;
+        /*public Builder cust(Customer cust) {
+            this.customer = cust;
             return this;
         }
 
         public Builder emp(Employee emp) {
-            this.emp = emp;
+            this.employee = emp;
             return this;
-        }
+        }*/
 
         public Receipt build(){
             return new Receipt(this);

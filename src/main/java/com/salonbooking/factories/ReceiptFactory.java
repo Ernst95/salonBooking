@@ -13,5 +13,12 @@ import java.util.Map;
  */
 public class ReceiptFactory {
 
-
+    public static Receipt buildReceipt(String id, Date date)
+    {
+        Receipt receipt = new Receipt.Builder()
+                .id(id)
+                .date(date)
+                .build();
+        return receipt;
+    }
 }

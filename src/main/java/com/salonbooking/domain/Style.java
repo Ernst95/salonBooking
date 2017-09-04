@@ -1,10 +1,16 @@
 package com.salonbooking.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by Ernst on 2017/08/07.
  */
+
+@Entity
 public class Style implements Cost{
 
+    @Id
     private String id;
     private String name;
     private double price;

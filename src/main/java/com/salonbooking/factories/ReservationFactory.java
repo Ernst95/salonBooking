@@ -2,6 +2,7 @@ package com.salonbooking.factories;
 
 import com.salonbooking.domain.*;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -9,5 +10,13 @@ import java.util.Map;
  */
 public class ReservationFactory {
 
-
+    public static Reservation buildReservation(String id, String date, String time)
+    {
+        Reservation reservation = new Reservation.Builder()
+                .id(id)
+                .date(date)
+                .time(time)
+                .build();
+        return reservation;
+    }
 }

@@ -1,15 +1,9 @@
 package com.salonbooking;
 
 import com.google.gson.Gson;
-import com.salonbooking.domain.Admin;
-import com.salonbooking.domain.Customer;
-import com.salonbooking.domain.Employee;
-import com.salonbooking.factories.AdminFactory;
-import com.salonbooking.factories.CustomerFactory;
-import com.salonbooking.factories.EmployeeFactory;
-import com.salonbooking.services.Impl.AdminServiceImpl;
-import com.salonbooking.services.Impl.CustomerServiceImpl;
-import com.salonbooking.services.Impl.EmployeeServiceImpl;
+import com.salonbooking.domain.*;
+import com.salonbooking.factories.*;
+import com.salonbooking.services.Impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +32,15 @@ public class SalonBookingApp {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
+
+    @Autowired
+    private ReceiptServiceImpl receiptService;
+
+    @Autowired
+    private ReservationServiceImpl reservationService;
+
+    @Autowired
+    private StyleServiceImpl styleService;
 
     @GetMapping(path = "/addAdmin/{adminId}/{adminName}/{adminPassword}")
     public @ResponseBody String addAdmin(@PathVariable String adminId, @PathVariable String adminName, @PathVariable String adminPassword)
@@ -155,6 +161,135 @@ public class SalonBookingApp {
             System.out.println("Record does not exist");
         } else {
             employeeService.delete(employee);
+            System.out.println("Record deleted");
+        }
+    }
+
+    @GetMapping(path = "/addReceipt/{id}")
+    public @ResponseBody String addReceipt(@PathVariable String id)
+    {
+
+        Date date = new Date();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+        Receipt receipt = ReceiptFactory.buildReceipt(id, date);
+        receiptService.save(receipt);
+        return new Gson().toJson(receipt);
+    }
+
+    @GetMapping(path = "readReceipt/{id}")
+    public @ResponseBody String readReceipt(@PathVariable String id)
+    {
+        Receipt receipt = receiptService.findById(id);
+        return new Gson().toJson(receipt);
+    }
+
+    @GetMapping(path = "/updateReceipt/{id}")
+    public @ResponseBody String updateReceipt(@PathVariable String id)
+    {
+        Receipt receipt = receiptService.findById(id);
+        Date date = new Date();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+        if(receipt == null)
+        {
+            return new Gson().toJson("Record does not exist");
+        }
+
+        Receipt receiptInsert = ReceiptFactory.buildReceipt(id, date);
+        receiptService.update(receiptInsert);
+        return new Gson().toJson(receiptInsert);
+    }
+
+    @GetMapping(path = "deleteReceipt/{id}")
+    public @ResponseBody void deleteReceipt(@PathVariable String id) {
+        Receipt receipt = receiptService.findById(id);
+        if (receipt == null) {
+            System.out.println("Record does not exist");
+        } else {
+            receiptService.delete(receipt);
+            System.out.println("Record deleted");
+        }
+    }
+
+    @GetMapping(path = "/addReservation/{id}/{date}/{time}")
+    public @ResponseBody String addReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time)
+    {
+        Reservation reservation = ReservationFactory.buildReservation(id, date, time);
+        reservationService.save(reservation);
+        return new Gson().toJson(reservation);
+    }
+
+    @GetMapping(path = "readReservation/{id}")
+    public @ResponseBody String readReservation(@PathVariable String id)
+    {
+        Reservation reservation = reservationService.findById(id);
+        return new Gson().toJson(reservation);
+    }
+
+    @GetMapping(path = "/updateReservation/{id}/{date}/{time}")
+    public @ResponseBody String updateReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time)
+    {
+        Reservation reservation = reservationService.findById(id);
+
+        if(reservation == null)
+        {
+            return new Gson().toJson("Record does not exist");
+        }
+
+        Reservation reservationInsert = ReservationFactory.buildReservation(id, date, time);
+        reservationService.update(reservationInsert);
+        return new Gson().toJson(reservationInsert);
+    }
+
+    @GetMapping(path = "deleteReservation/{id}")
+    public @ResponseBody void deleteReservation(@PathVariable String id) {
+        Reservation reservation = reservationService.findById(id);
+        if (reservation == null) {
+            System.out.println("Record does not exist");
+        } else {
+            reservationService.delete(reservation);
+            System.out.println("Record deleted");
+        }
+    }
+
+    @GetMapping(path = "/addStyle/{id}/{name}/{price}/{hairLength}")
+    public @ResponseBody String addStyle(@PathVariable String id, @PathVariable String name, @PathVariable Double price, @PathVariable int hairLength)
+    {
+        Style style = StyleFactory.buildStyle(id, name, price, hairLength);
+        styleService.save(style);
+        return new Gson().toJson(style);
+    }
+
+    @GetMapping(path = "readStyle/{id}")
+    public @ResponseBody String readStyle(@PathVariable String id)
+    {
+        Style style = styleService.findById(id);
+        return new Gson().toJson(style);
+    }
+
+    @GetMapping(path = "/updateStyle/{id}/{name}/{price}/{hairLength}")
+    public @ResponseBody String updateStyle(@PathVariable String id, @PathVariable String name, @PathVariable Double price, @PathVariable int hairLength)
+    {
+        Style style = styleService.findById(id);
+
+        if(style == null)
+        {
+            return new Gson().toJson("Record does not exist");
+        }
+
+        Style styleInsert = StyleFactory.buildStyle(id, name, price, hairLength);
+        styleService.update(styleInsert);
+        return new Gson().toJson(styleInsert);
+    }
+
+    @GetMapping(path = "deleteStyle/{id}")
+    public @ResponseBody void deleteStyle(@PathVariable String id) {
+        Style style = styleService.findById(id);
+        if (style == null) {
+            System.out.println("Record does not exist");
+        } else {
+            styleService.delete(style);
             System.out.println("Record deleted");
         }
     }

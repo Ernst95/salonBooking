@@ -1,17 +1,23 @@
 package com.salonbooking.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by Ernst on 2017/08/07.
  */
+
+@Entity
 public class Reservation {
 
+    @Id
     private String id;
     private String date;
     private String time;
-    private Employee emp;
+   /* private Employee emp;
     private Customer cust;
     private Style style;
-    private Receipt receipt;
+    private Receipt receipt;*/
 
     public String getId() {
         return id;
@@ -34,10 +40,10 @@ public class Reservation {
         this.id = builder.id;
         this.date = builder.date;
         this.time = builder.time;
-        this.emp = builder.emp;
+        /*this.emp = builder.emp;
         this.cust = builder.cust;
         this.style = builder.style;
-        this.receipt = builder.receipt;
+        this.receipt = builder.receipt;*/
 
     }
 
@@ -46,10 +52,10 @@ public class Reservation {
         private String id;
         private String date;
         private String time;
-        private Employee emp;
+        /*private Employee emp;
         private Customer cust;
         private Style style;
-        private Receipt receipt;
+        private Receipt receipt;*/
 
         public Builder id(String value) {
             this.id = value;
@@ -66,7 +72,7 @@ public class Reservation {
             return this;
         }
 
-        public Builder emp(Employee emp){
+        /*public Builder emp(Employee emp){
             this.emp = emp;
             return this;
         }
@@ -84,7 +90,7 @@ public class Reservation {
         public Builder receipt(Receipt receipt){
             this.receipt = receipt;
             return this;
-        }
+        }*/
 
         public Reservation build(){
             return new Reservation(this);
