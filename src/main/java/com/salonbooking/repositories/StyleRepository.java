@@ -7,11 +7,5 @@ import com.salonbooking.domain.Style;
  */
 public interface StyleRepository {
 
-    Style create(Style style);
 
-    Style read(String id);
-
-    Style update(Style style);
-
-    void delete(String id);
 }

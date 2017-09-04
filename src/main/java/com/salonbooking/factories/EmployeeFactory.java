@@ -1,7 +1,10 @@
 package com.salonbooking.factories;
 
+import com.salonbooking.domain.Customer;
 import com.salonbooking.domain.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,19 +12,19 @@ import java.util.Map;
  */
 public class EmployeeFactory {
 
-    public static Employee getEmployee(Map<String, String> values, int age){
-        Employee employee = new Employee.Builder()
-                .id(values.get("id"))
-                .name(values.get("name"))
-                .surname(values.get("surname"))
-                .age(age)
-                .gender(values.get("gender"))
-                .cellNumber(values.get("cellNumber"))
-                .email(values.get("email"))
-                .password(values.get("password"))
-                .build();
-        //.emp(values.get("emp"))
-        //.receiptList = builder.receiptList;
-        return employee;
+    public static Employee buildEmployee(String id, String name, String surname, int age, String gender, String cellNumber, String email, String password, List<Customer> custList)
+    {
+        Employee emp = new Employee.Builder()
+            .id(id)
+            .name(name)
+            .surname(surname)
+            .age(age)
+            .gender(gender)
+            .cellNumber(cellNumber)
+            .email(email)
+            .password(password)
+            .custList(custList)
+            .build();
+        return emp;
     }
 }

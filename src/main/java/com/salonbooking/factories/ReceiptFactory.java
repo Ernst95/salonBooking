@@ -13,15 +13,5 @@ import java.util.Map;
  */
 public class ReceiptFactory {
 
-    public static Receipt getReceipt(Map<String, String> values, Date date, DateFormat dateFormat, Customer cust, Employee emp){
-        Receipt receipt = new Receipt.Builder()
-                .id(values.get("id"))
-                .date(date)
-                .dateFormat(dateFormat)
-                .cust(cust)
-                .emp(emp)
-                .build();
 
-        return receipt;
-    }
 }

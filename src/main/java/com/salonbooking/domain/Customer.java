@@ -1,12 +1,16 @@
 package com.salonbooking.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
 /**
  * Created by Ernst on 2017/08/07.
  */
+@Entity
 public class Customer {
 
+    @Id
     private String id;
     private String name;
     private String surname;
@@ -14,7 +18,8 @@ public class Customer {
     private String gender;
     private String cellNumber;
     private String email;
-    private Employee emp;
+
+    //private Employee emp;
     //ArrayList<Receipt> receiptList;
 
     public String getId() {
@@ -58,7 +63,7 @@ public class Customer {
         this.gender = builder.gender;
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
-        this.emp = builder.emp;
+        //this.emp = builder.emp;
         //this.receiptList = builder.receiptList;
 
     }
@@ -72,7 +77,7 @@ public class Customer {
         private String gender;
         private String cellNumber;
         private String email;
-        private Employee emp;
+        //private Employee emp;
         //private ArrayList<Receipt> receiptList;
 
         public Customer.Builder id(String value) {
@@ -110,10 +115,19 @@ public class Customer {
             return this;
         }
 
-        public Builder emp(Employee emp){
-            this.emp = emp;
+        /*public Builder emp(String id){
+            this.emp = new Employee.Builder()
+                    .id(id)
+                    .name("")
+                    .surname("")
+                    .age(0)
+                    .gender("")
+                    .cellNumber("")
+                    .email("")
+                    .password("")
+                    .build();
             return this;
-        }
+        }*/
 
         /*public Builder receiptList()
         {

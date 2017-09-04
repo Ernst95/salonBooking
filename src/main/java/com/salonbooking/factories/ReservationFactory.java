@@ -9,18 +9,5 @@ import java.util.Map;
  */
 public class ReservationFactory {
 
-    public static Reservation getReservation(Map<String, String> values, Employee emp, Customer cust, Style style, Receipt receipt)
-    {
-        Reservation reservation = new Reservation.Builder()
-                .id(values.get("id"))
-                .date(values.get("date"))
-                .time(values.get("time"))
-                .emp(emp)
-                .cust(cust)
-                .style(style)
-                .receipt(receipt)
-                .build();
 
-        return reservation;
-    }
 }

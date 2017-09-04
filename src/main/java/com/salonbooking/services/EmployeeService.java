@@ -2,16 +2,12 @@ package com.salonbooking.services;
 
 import com.salonbooking.domain.Employee;
 
+import java.util.List;
+
 /**
  * Created by Ernst on 2017/08/14.
  */
-public interface EmployeeService {
+public interface EmployeeService extends BaseService<Employee, String>{
 
-    Employee create(Employee employee);
-
-    Employee read(String id);
-
-    Employee update(Employee employee);
-
-    void delete(String id);
+   List<Employee> getEmployee();
 }

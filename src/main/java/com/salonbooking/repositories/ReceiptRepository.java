@@ -7,11 +7,5 @@ import com.salonbooking.domain.Receipt;
  */
 public interface ReceiptRepository {
 
-    Receipt create(Receipt receipt);
 
-    Receipt read(String id);
-
-    Receipt update(Receipt receipt);
-
-    void delete(String id);
 }

@@ -1,39 +1,45 @@
 package com.salonbooking.services.Impl;
 
+import com.salonbooking.domain.Admin;
 import com.salonbooking.domain.Customer;
 import com.salonbooking.repositories.CustomerRepository;
-import com.salonbooking.repositories.Impl.CustomerRepositoryImpl;
 import com.salonbooking.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Ernst on 2017/08/14.
  */
+
+@Component
 public class CustomerServiceImpl implements CustomerService{
 
-    private static CustomerServiceImpl service = null;
+    @Autowired
+    private CustomerRepository repository;
 
-    CustomerRepository repository = CustomerRepositoryImpl.getInstance();
-
-    public static CustomerServiceImpl getInstance(){
-        if(service == null)
-            service = new CustomerServiceImpl();
-        return service;
+    @Override
+    public Customer save(Customer entity)
+    {
+        return repository.save(entity);
     }
 
-    public Customer create(Customer customer) {
-        return repository.create(customer);
+    @Override
+    public Customer findById(String s)
+    {
+        return repository.findOne(s);
     }
 
-    public Customer read(String id) {
-        return repository.read(id);
+    @Override
+    public Customer update(Customer entity)
+    {
+        return repository.save(entity);
     }
 
-    public Customer update(Customer customer) {
-        return repository.update(customer);
+    @Override
+    public void delete(Customer entity)
+    {
+        repository.delete(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
 
-    }
 }

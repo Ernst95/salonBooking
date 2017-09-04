@@ -1,12 +1,16 @@
 package com.salonbooking.domain;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Ernst on 2017/08/07.
  */
+
+@Entity
 public class Employee {
 
+    @Id
     private String id;
     private String name;
     private String surname;
@@ -15,7 +19,10 @@ public class Employee {
     private String cellNumber;
     private String email;
     private String password;
-    //ArrayList<Customer> custList;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id")
+    private List<Customer> custList;
 
     public String getId() {
         return id;
@@ -49,6 +56,11 @@ public class Employee {
         return password;
     }
 
+    public List<Customer> getCustomers()
+    {
+        return custList;
+    }
+
     private Employee(){
 
     }
@@ -63,7 +75,7 @@ public class Employee {
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
         this.password = builder.password;
-        //this.custList = builder.custList;
+        this.custList = builder.custList;
 
     }
 
@@ -77,7 +89,7 @@ public class Employee {
         private String cellNumber;
         private String email;
         private String password;
-        private ArrayList<Customer> custList;
+        private List<Customer> custList;
 
         public Builder id(String value) {
             this.id = value;
@@ -119,11 +131,11 @@ public class Employee {
             return this;
         }
 
-        /*public Builder custList()
+        public Builder custList(List<Customer> value)
         {
-            this.custList = new ArrayList<Customer>();
+            this.custList = value;
             return this;
-        }*/
+        }
 
         public Employee build(){
             return new Employee(this);

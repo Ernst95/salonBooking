@@ -1,10 +1,16 @@
 package com.salonbooking.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by Ernst on 2017/08/07.
  */
+
+@Entity
 public class Admin {
 
+    @Id
     private String id;
     private String name;
     private String password;

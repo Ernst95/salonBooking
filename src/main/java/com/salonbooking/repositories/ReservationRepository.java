@@ -7,11 +7,5 @@ import com.salonbooking.domain.Reservation;
  */
 public interface ReservationRepository {
 
-    Reservation create(Reservation reservation);
 
-    Reservation read(String id);
-
-    Reservation update(Reservation reservation);
-
-    void delete(String id);
 }

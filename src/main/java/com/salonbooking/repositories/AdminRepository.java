@@ -1,17 +1,11 @@
 package com.salonbooking.repositories;
 
 import com.salonbooking.domain.Admin;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by Ernst on 2017/07/14.
  */
-public interface AdminRepository {
+public interface AdminRepository extends CrudRepository<Admin, String>{
 
-    Admin create(Admin admin);
-
-    Admin read(String id);
-
-    Admin update(Admin admin);
-
-    void delete(String id);
 }

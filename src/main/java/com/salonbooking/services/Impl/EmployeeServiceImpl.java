@@ -2,38 +2,55 @@ package com.salonbooking.services.Impl;
 
 import com.salonbooking.domain.Employee;
 import com.salonbooking.repositories.EmployeeRepository;
-import com.salonbooking.repositories.Impl.EmployeeRepositoryImpl;
 import com.salonbooking.services.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ernst on 2017/08/14.
  */
+
+@Component
 public class EmployeeServiceImpl implements EmployeeService{
 
-    private static EmployeeServiceImpl service = null;
+    @Autowired
+    private EmployeeRepository repository;
 
-    EmployeeRepository repository = EmployeeRepositoryImpl.getInstance();
-
-    public static EmployeeServiceImpl getInstance(){
-        if(service == null)
-            service = new EmployeeServiceImpl();
-        return service;
+    @Override
+    public Employee save(Employee entity)
+    {
+        return repository.save(entity);
     }
 
-    public Employee create(Employee employee) {
-        return repository.create(employee);
+    @Override
+    public Employee findById(String s)
+    {
+        return repository.findOne(s);
     }
 
-    public Employee read(String id) {
-        return repository.read(id);
+    @Override
+    public Employee update(Employee entity)
+    {
+        return repository.save(entity);
     }
 
-    public Employee update(Employee employee) {
-        return repository.update(employee);
+    @Override
+    public void delete(Employee entity)
+    {
+        repository.delete(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public List<Employee> getEmployee() {
+        List<Employee> allcources = new ArrayList<Employee>();
 
+        Iterable<Employee> courses = repository.findAll();
+        for (Employee course : courses) {
+            allcources.add(course);
+        }
+        return allcources;
     }
 }
