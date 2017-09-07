@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class EmployeeFactory {
 
-    public static Employee buildEmployee(String id, String name, String surname, int age, String gender, String cellNumber, String email, String password, List<Customer> custList)
+    public static Employee buildEmployee(String id, String name, String surname, int age, String gender, String cellNumber, String email, String password)
     {
         Employee emp = new Employee.Builder()
             .id(id)
@@ -23,7 +23,6 @@ public class EmployeeFactory {
             .cellNumber(cellNumber)
             .email(email)
             .password(password)
-            .custList(custList)
             .build();
         return emp;
     }

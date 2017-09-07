@@ -10,12 +10,15 @@ import java.util.Map;
  */
 public class ReservationFactory {
 
-    public static Reservation buildReservation(String id, String date, String time)
+    public static Reservation buildReservation(String id, String date, String time, Style style, Customer cust, Employee emp)
     {
         Reservation reservation = new Reservation.Builder()
                 .id(id)
                 .date(date)
                 .time(time)
+                .style(style)
+                .cust(cust)
+                .emp(emp)
                 .build();
         return reservation;
     }

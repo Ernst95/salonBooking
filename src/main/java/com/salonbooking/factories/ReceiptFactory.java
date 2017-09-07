@@ -1,8 +1,6 @@
 package com.salonbooking.factories;
 
-import com.salonbooking.domain.Customer;
-import com.salonbooking.domain.Employee;
-import com.salonbooking.domain.Receipt;
+import com.salonbooking.domain.*;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -13,11 +11,12 @@ import java.util.Map;
  */
 public class ReceiptFactory {
 
-    public static Receipt buildReceipt(String id, Date date)
+    public static Receipt buildReceipt(String id, Date date, Reservation reservation)
     {
         Receipt receipt = new Receipt.Builder()
                 .id(id)
                 .date(date)
+                .reservation(reservation)
                 .build();
         return receipt;
     }

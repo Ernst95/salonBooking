@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class CustomerFactory {
 
-    public static Customer buildCustomer(String id, String name, String surname, int age, String gender, String cellNumber, String email)
+    public static Customer buildCustomer(String id, String name, String surname, int age, String gender, String cellNumber, String email, Employee emp)
     {
         Customer cust = new Customer.Builder()
                 .id(id)
@@ -21,6 +21,7 @@ public class CustomerFactory {
                 .gender(gender)
                 .cellNumber(cellNumber)
                 .email(email)
+                .emp(emp)
                 .build();
         return cust;
     }
