@@ -83,10 +83,21 @@ public class SalonBookingApp {
         }
     }
 
-    @GetMapping(path = "/addCustomer/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}")
-    public @ResponseBody String addCustomer(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email)
+    @GetMapping(path = "/addCustomer/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{empId}")
+    public @ResponseBody String addCustomer(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String empId)
     {
-        Customer customer = CustomerFactory.buildCustomer(id, name, surname, age, gender, cellNumber, email);
+        Employee emp = new Employee.Builder()
+                .id(empId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer customer = CustomerFactory.buildCustomer(id, name, surname, age, gender, cellNumber, email, emp);
         customerService.save(customer);
         return new Gson().toJson(customer);
     }
@@ -98,8 +109,15 @@ public class SalonBookingApp {
         return new Gson().toJson(customer);
     }
 
-    @GetMapping(path = "/updateCustomer/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}")
-    public @ResponseBody String updateCustomer(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email)
+    @GetMapping(path = "readCustomerByAge/{age}")
+    public @ResponseBody String readCustomerAll(@PathVariable int age)
+    {
+        List<Customer> customer = customerService.getCustomer(age);
+        return new Gson().toJson(customer);
+    }
+
+    @GetMapping(path = "/updateCustomer/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{empId}")
+    public @ResponseBody String updateCustomer(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String empId)
     {
         Customer customer = customerService.findById(id);
 
@@ -108,12 +126,23 @@ public class SalonBookingApp {
             return new Gson().toJson("Record does not exist");
         }
 
-        Customer customerInsert = CustomerFactory.buildCustomer(id, name, surname, age, gender, cellNumber, email);
+        Employee emp = new Employee.Builder()
+                .id(empId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer customerInsert = CustomerFactory.buildCustomer(id, name, surname, age, gender, cellNumber, email,  emp);
         customerService.update(customerInsert);
         return new Gson().toJson(customerInsert);
     }
 
-    @GetMapping(path = "deleteCustomer/{id}")
+    @GetMapping(path = "/deleteCustomer/{id}")
     public @ResponseBody void deleteCustomer(@PathVariable String id) {
         Customer customer = customerService.findById(id);
         if (customer == null) {
@@ -124,10 +153,10 @@ public class SalonBookingApp {
         }
     }
 
-    @GetMapping(path = "/addEmployee/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{password}/{custList}")
-    public @ResponseBody String addEmployee(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String password, @PathVariable List<Customer> custList)
+    @GetMapping(path = "/addEmployee/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{password}")
+    public @ResponseBody String addEmployee(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String password)
     {
-        Employee employee = EmployeeFactory.buildEmployee(id, name, surname, age, gender, cellNumber, email, password, custList);
+        Employee employee = EmployeeFactory.buildEmployee(id, name, surname, age, gender, cellNumber, email, password);
         employeeService.save(employee);
         return new Gson().toJson(employee);
     }
@@ -139,8 +168,8 @@ public class SalonBookingApp {
         return new Gson().toJson(employee);
     }
 
-    @GetMapping(path = "/updateEmployee/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{custList}")
-    public @ResponseBody String updateEmployee(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String password, @PathVariable List<Customer> custList)
+    @GetMapping(path = "/updateEmployee/{id}/{name}/{surname}/{age}/{gender}/{cellNumber}/{email}/{password}")
+    public @ResponseBody String updateEmployee(@PathVariable String id, @PathVariable String name, @PathVariable String surname, @PathVariable int age, @PathVariable String gender, @PathVariable String cellNumber, @PathVariable String email, @PathVariable String password)
     {
         Employee employee = employeeService.findById(id);
 
@@ -149,7 +178,7 @@ public class SalonBookingApp {
             return new Gson().toJson("Record does not exist");
         }
 
-        Employee employeeInsert = EmployeeFactory.buildEmployee(id, name, surname, age, gender, cellNumber, email, password, custList);
+        Employee employeeInsert = EmployeeFactory.buildEmployee(id, name, surname, age, gender, cellNumber, email, password);
         employeeService.update(employeeInsert);
         return new Gson().toJson(employeeInsert);
     }
@@ -165,14 +194,51 @@ public class SalonBookingApp {
         }
     }
 
-    @GetMapping(path = "/addReceipt/{id}")
-    public @ResponseBody String addReceipt(@PathVariable String id)
+    @GetMapping(path = "/addReceipt/{id}/{resId}")
+    public @ResponseBody String addReceipt(@PathVariable String id, @PathVariable String resId)
     {
+        Employee emp = new Employee.Builder()
+                .id("")
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer cust = new Customer.Builder()
+                .id("")
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .emp(emp)
+                .build();
+
+        Style style = new Style.Builder()
+                .id("")
+                .name("")
+                .price(0)
+                .hairLength(0)
+                .build();
+
+        Reservation reservation = new Reservation.Builder()
+                .id(resId)
+                .date("")
+                .time("")
+                .style(style)
+                .cust(cust)
+                .emp(emp)
+                .build();
 
         Date date = new Date();
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-        Receipt receipt = ReceiptFactory.buildReceipt(id, date);
+        Receipt receipt = ReceiptFactory.buildReceipt(id, date, reservation);
         receiptService.save(receipt);
         return new Gson().toJson(receipt);
     }
@@ -184,19 +250,56 @@ public class SalonBookingApp {
         return new Gson().toJson(receipt);
     }
 
-    @GetMapping(path = "/updateReceipt/{id}")
-    public @ResponseBody String updateReceipt(@PathVariable String id)
+    @GetMapping(path = "/updateReceipt/{id}/{resId}")
+    public @ResponseBody String updateReceipt(@PathVariable String id, @PathVariable String resId)
     {
         Receipt receipt = receiptService.findById(id);
         Date date = new Date();
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         if(receipt == null)
         {
             return new Gson().toJson("Record does not exist");
         }
 
-        Receipt receiptInsert = ReceiptFactory.buildReceipt(id, date);
+        Employee emp = new Employee.Builder()
+                .id("")
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer cust = new Customer.Builder()
+                .id("")
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .emp(emp)
+                .build();
+
+        Style style = new Style.Builder()
+                .id("")
+                .name("")
+                .price(0)
+                .hairLength(0)
+                .build();
+
+        Reservation reservation = new Reservation.Builder()
+                .id(resId)
+                .date("")
+                .time("")
+                .style(style)
+                .cust(cust)
+                .emp(emp)
+                .build();
+
+        Receipt receiptInsert = ReceiptFactory.buildReceipt(id, date, reservation);
         receiptService.update(receiptInsert);
         return new Gson().toJson(receiptInsert);
     }
@@ -212,10 +315,39 @@ public class SalonBookingApp {
         }
     }
 
-    @GetMapping(path = "/addReservation/{id}/{date}/{time}")
-    public @ResponseBody String addReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time)
+    @GetMapping(path = "/addReservation/{id}/{date}/{time}/{styleId}/{custId}/{empId}")
+    public @ResponseBody String addReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time, @PathVariable String styleId, @PathVariable String custId, @PathVariable String empId)
     {
-        Reservation reservation = ReservationFactory.buildReservation(id, date, time);
+        Employee emp = new Employee.Builder()
+                .id(empId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer cust = new Customer.Builder()
+                .id(custId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .emp(emp)
+                .build();
+
+        Style style = new Style.Builder()
+                .id(styleId)
+                .name("")
+                .price(0)
+                .hairLength(0)
+                .build();
+
+        Reservation reservation = ReservationFactory.buildReservation(id, date, time, style, cust, emp);
         reservationService.save(reservation);
         return new Gson().toJson(reservation);
     }
@@ -227,8 +359,8 @@ public class SalonBookingApp {
         return new Gson().toJson(reservation);
     }
 
-    @GetMapping(path = "/updateReservation/{id}/{date}/{time}")
-    public @ResponseBody String updateReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time)
+    @GetMapping(path = "/updateReservation/{id}/{date}/{time}/{styleId}/{custId}/{empId}")
+    public @ResponseBody String updateReservation(@PathVariable String id, @PathVariable String date, @PathVariable String time, @PathVariable String styleId, @PathVariable String custId, @PathVariable String empId)
     {
         Reservation reservation = reservationService.findById(id);
 
@@ -237,7 +369,36 @@ public class SalonBookingApp {
             return new Gson().toJson("Record does not exist");
         }
 
-        Reservation reservationInsert = ReservationFactory.buildReservation(id, date, time);
+        Employee emp = new Employee.Builder()
+                .id(empId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .password("")
+                .build();
+
+        Customer cust = new Customer.Builder()
+                .id(custId)
+                .name("")
+                .surname("")
+                .age(0)
+                .gender("")
+                .cellNumber("")
+                .email("")
+                .emp(emp)
+                .build();
+
+        Style style = new Style.Builder()
+                .id(styleId)
+                .name("")
+                .price(0)
+                .hairLength(0)
+                .build();
+
+        Reservation reservationInsert = ReservationFactory.buildReservation(id, date, time, style, cust, emp);
         reservationService.update(reservationInsert);
         return new Gson().toJson(reservationInsert);
     }
