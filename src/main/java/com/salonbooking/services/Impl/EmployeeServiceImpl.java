@@ -45,12 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     public List<Employee> getEmployee() {
-        List<Employee> allcources = new ArrayList<Employee>();
+        List<Employee> allCustomers = new ArrayList<Employee>();
 
-        Iterable<Employee> courses = repository.findAll();
-        for (Employee course : courses) {
-            allcources.add(course);
+        Iterable<Employee> customers = repository.findAll();
+        for (Employee cust : customers) {
+            allCustomers.add(cust);
         }
-        return allcources;
+        return allCustomers;
     }
 }

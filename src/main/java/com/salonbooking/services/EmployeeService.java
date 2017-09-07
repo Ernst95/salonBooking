@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface EmployeeService extends BaseService<Employee, String>{
 
-   List<Employee> getEmployee();
+
 }
