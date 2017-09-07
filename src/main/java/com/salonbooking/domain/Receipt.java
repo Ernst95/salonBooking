@@ -2,6 +2,8 @@ package com.salonbooking.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,10 +18,17 @@ public class Receipt implements Print{
     @Id
     private String id;
     private Date date;
-    private DateFormat dateFormat;
+    //private DateFormat dateFormat;
 
-    /*private Customer customer;
+    /*@ManyToOne
+    private Style style;
+    @ManyToOne
+    private Customer customer;
+    @ManyToOne
     private Employee employee;*/
+
+    @OneToOne
+    private Reservation reservation;
 
     public String getId() {
         return id;
@@ -29,15 +38,15 @@ public class Receipt implements Print{
         return date;
     }
 
-    public DateFormat getDateFormat()
+    /*public DateFormat getDateFormat()
     {
         return dateFormat;
-    }
+    }*/
 
     public void print()
     {
-        System.out.println("Receipt\n\t\t\t\t"+dateFormat.format(date));
-        /*System.out.println("Employee: " + employee.getName());
+        /*System.out.println("Receipt\n\t\t\t\t"+dateFormat.format(date));
+        System.out.println("Employee: " + employee.getName());
         System.out.println("Customer: " + customer.getName());*/
     }
 
@@ -49,20 +58,14 @@ public class Receipt implements Print{
 
         this.id = builder.id;
         this.date = builder.date;
-        /*this.dateFormat = builder.dateFormat;
-        this.customer = builder.customer;
-        this.employee = builder.employee;*/
-
+        this.reservation = builder.reservation;
     }
 
     public static class Builder{
 
         private String id;
         private Date date;
-        /*private DateFormat dateFormat;
-        private Customer customer;
-        private Employee employee;
-        private Receipt receipt*/
+        private Reservation reservation;
 
         public Builder id(String value) {
             this.id = value;
@@ -74,20 +77,11 @@ public class Receipt implements Print{
             return this;
         }
 
-        /*public Builder dateFormat(DateFormat dateFormat){
-            this.dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            return this;
-        }*/
-
-        /*public Builder cust(Customer cust) {
-            this.customer = cust;
+        public Builder reservation(Reservation reservation)
+        {
+            this.reservation = reservation;
             return this;
         }
-
-        public Builder emp(Employee emp) {
-            this.employee = emp;
-            return this;
-        }*/
 
         public Receipt build(){
             return new Receipt(this);

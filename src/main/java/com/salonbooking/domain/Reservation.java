@@ -2,6 +2,7 @@ package com.salonbooking.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Ernst on 2017/08/07.
@@ -14,10 +15,12 @@ public class Reservation {
     private String id;
     private String date;
     private String time;
-   /* private Employee emp;
-    private Customer cust;
+    @ManyToOne
     private Style style;
-    private Receipt receipt;*/
+    @ManyToOne
+    private Customer cust;
+    @ManyToOne
+    private Employee emp;
 
     public String getId() {
         return id;
@@ -40,10 +43,9 @@ public class Reservation {
         this.id = builder.id;
         this.date = builder.date;
         this.time = builder.time;
-        /*this.emp = builder.emp;
-        this.cust = builder.cust;
         this.style = builder.style;
-        this.receipt = builder.receipt;*/
+        this.cust = builder.cust;
+        this.emp = builder.emp;
 
     }
 
@@ -52,10 +54,9 @@ public class Reservation {
         private String id;
         private String date;
         private String time;
-        /*private Employee emp;
-        private Customer cust;
         private Style style;
-        private Receipt receipt;*/
+        private Customer cust;
+        private Employee emp;
 
         public Builder id(String value) {
             this.id = value;
@@ -72,8 +73,8 @@ public class Reservation {
             return this;
         }
 
-        /*public Builder emp(Employee emp){
-            this.emp = emp;
+        public Builder style(Style style){
+            this.style = style;
             return this;
         }
 
@@ -82,15 +83,10 @@ public class Reservation {
             return this;
         }
 
-        public Builder style(Style style){
-            this.style = style;
+        public Builder emp(Employee emp){
+            this.emp = emp;
             return this;
         }
-
-        public Builder receipt(Receipt receipt){
-            this.receipt = receipt;
-            return this;
-        }*/
 
         public Reservation build(){
             return new Reservation(this);

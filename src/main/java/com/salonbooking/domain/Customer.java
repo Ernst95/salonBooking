@@ -1,8 +1,6 @@
 package com.salonbooking.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
@@ -20,8 +18,8 @@ public class Customer {
     private String cellNumber;
     private String email;
 
-    //private Employee emp;
-    //ArrayList<Receipt> receiptList;
+    @ManyToOne
+    private Employee emp;
 
     public String getId() {
         return id;
@@ -64,8 +62,7 @@ public class Customer {
         this.gender = builder.gender;
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
-        //this.emp = builder.emp;
-        //this.receiptList = builder.receiptList;
+        this.emp = builder.emp;
 
     }
 
@@ -78,8 +75,7 @@ public class Customer {
         private String gender;
         private String cellNumber;
         private String email;
-        //private Employee emp;
-        //private ArrayList<Receipt> receiptList;
+        private Employee emp;
 
         public Customer.Builder id(String value) {
             this.id = value;
@@ -116,25 +112,11 @@ public class Customer {
             return this;
         }
 
-        /*public Builder emp(String id){
-            this.emp = new Employee.Builder()
-                    .id(id)
-                    .name("")
-                    .surname("")
-                    .age(0)
-                    .gender("")
-                    .cellNumber("")
-                    .email("")
-                    .password("")
-                    .build();
-            return this;
-        }*/
-
-        /*public Builder receiptList()
+        public Builder emp(Employee emp)
         {
-            this.receiptList = new ArrayList<Receipt>();
+            this.emp = emp;
             return this;
-        }*/
+        }
 
         public Customer build(){
             return new Customer(this);

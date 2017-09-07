@@ -1,7 +1,6 @@
 package com.salonbooking.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Ernst on 2017/08/07.
@@ -19,10 +18,6 @@ public class Employee {
     private String cellNumber;
     private String email;
     private String password;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
-    private List<Customer> custList;
 
     public String getId() {
         return id;
@@ -56,11 +51,6 @@ public class Employee {
         return password;
     }
 
-    public List<Customer> getCustomers()
-    {
-        return custList;
-    }
-
     private Employee(){
 
     }
@@ -75,7 +65,6 @@ public class Employee {
         this.cellNumber = builder.cellNumber;
         this.email = builder.email;
         this.password = builder.password;
-        this.custList = builder.custList;
 
     }
 
@@ -89,7 +78,6 @@ public class Employee {
         private String cellNumber;
         private String email;
         private String password;
-        private List<Customer> custList;
 
         public Builder id(String value) {
             this.id = value;
@@ -128,12 +116,6 @@ public class Employee {
 
         public Builder password(String value) {
             this.password = value;
-            return this;
-        }
-
-        public Builder custList(List<Customer> value)
-        {
-            this.custList = value;
             return this;
         }
 
